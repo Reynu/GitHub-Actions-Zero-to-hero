@@ -27,10 +27,6 @@ jobs:
          with:
            context: .
            push: true
-           tags: |
-             tags: |
-                reynu14negi/github-actions-app:latest
-                reynu14negi/github-actions-app:${{ github.sha }}
-                reynu14negi/github-actions-app:${{ github.ref_name }}
+           tags: ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:latest
                     
 
