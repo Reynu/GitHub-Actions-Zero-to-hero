@@ -4,6 +4,17 @@ name: CICD
 # Manual click (deliver) workflows whenever the user needs
 on:
   workflow_dispatch: 
+   inputs:
+      environment:
+       description: This is the environment value where the workflow runs
+       default: 'dev'
+       required: true
+       type: choice
+       options:
+         - dev
+         - prd
+         - stg
+   
 
 jobs: 
    code:
@@ -29,6 +40,9 @@ jobs:
    deploy:
      needs: [test]
      runs-on: ubuntu-latest
+
+     # this job runs only if the 'environment' input is 'dev'
+     if: inputs.environment == 'dev'
      steps:
        - name: Deploying the app
          run: echo "docker compose deployed the app"
