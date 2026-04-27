@@ -28,6 +28,9 @@ jobs:
            context: .
            push: true
            tags: |
-             ${{ vars.DOCKERHUB_USERNAME }}/docker-build-push:latest
-            
+             tags: |
+                reynu14negi/github-actions-app:latest
+                reynu14negi/github-actions-app:${{ github.sha }}
+                reynu14negi/github-actions-app:${{ github.ref_name }}
+                    
 
