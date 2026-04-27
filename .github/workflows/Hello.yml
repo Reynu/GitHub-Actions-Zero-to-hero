@@ -5,6 +5,8 @@ name: Hello workflow
 on:
   push:
    branches: [main]
+   paths: 
+      - '**.html'
 
 # these are jobs inside the workflow
 jobs:
