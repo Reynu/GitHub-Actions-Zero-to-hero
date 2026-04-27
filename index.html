@@ -1,1 +1,265 @@
-<h1>hello dosto</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Renu | DevOps Engineer</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(15px);
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      z-index: 1000;
+    }
+
+    nav h2 {
+      font-weight: 600;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #cbd5f5;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 120px 10%;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      max-width: 500px;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .hero-text span {
+      color: #38bdf8;
+    }
+
+    .hero-text p {
+      color: #94a3b8;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      background: rgba(56,189,248,0.2);
+      box-shadow: 0 0 20px rgba(56,189,248,0.3);
+    }
+
+    /* Glass Cards */
+    .glass {
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 25px;
+      transition: 0.3s;
+    }
+
+    .glass:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Skills */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .skill h3 {
+      margin-bottom: 10px;
+      color: #38bdf8;
+    }
+
+    /* Projects */
+    .project p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #94a3b8;
+    }
+
+    /* Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 1s ease;
+    }
+
+    .fade-in.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <h2>Renu</h2>
+  <div>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-text fade-in">
+    <h1>Hi, I'm <span>Renu</span></h1>
+    <p>DevOps | MLOps | AIOps Engineer with 7+ years of experience building scalable, automated, and resilient systems.</p>
+    <button class="btn">Download Resume</button>
+  </div>
+
+  <div class="glass fade-in">
+    <h3>🚀 Current Focus</h3>
+    <p>Cloud Architecture, Kubernetes Scaling, AI Infrastructure, and DevSecOps</p>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="glass fade-in">
+    <h2>About Me</h2>
+    <p>
+      I specialize in designing scalable cloud infrastructure, building CI/CD pipelines,
+      and managing Kubernetes clusters in production environments.
+      I have hands-on experience with AWS, Terraform, Docker, Kubernetes, and GitOps systems.
+    </p>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <h2 class="fade-in">Skills</h2>
+  <div class="grid">
+
+    <div class="glass skill fade-in">
+      <h3>DevOps</h3>
+      <p>CI/CD, Jenkins, GitHub Actions, Automation</p>
+    </div>
+
+    <div class="glass skill fade-in">
+      <h3>Cloud</h3>
+      <p>AWS, Infrastructure as Code (Terraform)</p>
+    </div>
+
+    <div class="glass skill fade-in">
+      <h3>Kubernetes</h3>
+      <p>Cluster Management, Scaling, Troubleshooting</p>
+    </div>
+
+    <div class="glass skill fade-in">
+      <h3>MLOps</h3>
+      <p>Model Deployment, Monitoring, Pipelines</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <h2 class="fade-in">Projects</h2>
+  <div class="grid">
+
+    <div class="glass project fade-in">
+      <h3>GitOps Platform</h3>
+      <p>Implemented Flux-based GitOps system for staging and production clusters.</p>
+    </div>
+
+    <div class="glass project fade-in">
+      <h3>Kubernetes Monitoring</h3>
+      <p>Built observability stack using Prometheus, Grafana, and alerting.</p>
+    </div>
+
+    <div class="glass project fade-in">
+      <h3>CI/CD Automation</h3>
+      <p>Designed scalable pipelines reducing deployment time by 60%.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 Renu | DevOps Engineer
+</footer>
+
+<script>
+  const elements = document.querySelectorAll('.fade-in');
+
+  window.addEventListener('scroll', () => {
+    elements.forEach(el => {
+      const position = el.getBoundingClientRect().top;
+      const screenHeight = window.innerHeight;
+
+      if(position < screenHeight - 100){
+        el.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
