@@ -15,7 +15,7 @@ jobs:
       - name: login to docker hub
         uses: docker/login-action@v3
         with:
-          username: ${{ vars.DOCKERHB_USERNAME }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
               
       - name: Build and push Docker image
@@ -24,6 +24,6 @@ jobs:
           context: 
           push: true
           tags: |
-            ${{ vars.DOCKERHB_USERNAME }}/github-actions-app:latest
-            ${{ vars.DOCKERHB_USERNAME }}/github-actions-app:${{ github.sha }}
-            ${{ vars.DOCKERHB_USERNAME }}/github-actions-app:${{ github.ref_name }}
+            ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:latest
+            ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:${{ github.sha }}
+            ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:${{ github.ref_name }}
