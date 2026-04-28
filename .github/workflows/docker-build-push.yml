@@ -15,15 +15,15 @@ jobs:
       - name: login to docker hub
         uses: docker/login-action@v3
         with:
-          username: reynu14negi
+          username: ${{ vars.DOCKERHB_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
               
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: 
           push: true
           tags: |
-            reynu14negi/github-actions-app:latest
-            reynu14negi/github-actions-app:${{ github.sha }}
-            reynu14negi/github-actions-app:${{ github.ref_name }}
+            ${{ vars.DOCKERHB_USERNAME }}/github-actions-app:latest
+            ${{ vars.DOCKERHB_USERNAME }}/github-actions-app:${{ github.sha }}
+            ${{ vars.DOCKERHB_USERNAME }}/github-actions-app:${{ github.ref_name }}
