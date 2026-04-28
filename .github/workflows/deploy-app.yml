@@ -7,8 +7,6 @@ on:
 jobs:  
    deploy:
      runs-on: self-hosted
-     env:
-            DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
      steps:
          - name: checkout code
            uses: actions/checkout@v4
@@ -19,4 +17,5 @@ jobs:
          - name: Deploy with Docker Compose
            run: |
              docker compose -f Docker-compose.yml down
-             docker compose -f Docker-compose.yml up -d --build --force-recreate --pull always
+             docker compose -f Docker-compose.yml pull
+             docker compose -f Docker-compose.yml up -d --force-recreate
