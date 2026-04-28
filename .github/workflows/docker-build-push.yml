@@ -18,15 +18,15 @@ jobs:
             username: ${{ vars.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKER_TOKEN }}
               
-
        - name: Build and push Docker image
          uses: docker/build-push-action@v6
          with:
-           context: .
-           push: true
-           tags: | 
-              ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:latest
-              ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:${{ github.sha }} 
-              ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:${{ github.ref_name }}
+          context: .
+          push: true
+          tags: |
+            ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:latest
+            ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:${{ github.sha }}
+            ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:${{ github.ref_name }}
+
                     
 
