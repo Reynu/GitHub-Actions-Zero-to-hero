@@ -17,4 +17,7 @@ jobs:
            uses: docker/setup-compose-action@v2
 
          - name: Deploy with Docker Compose
-           run: docker compose up -d --build --force-recreate --pull always
+           working-directory: GitHub-Actions-Zero-to-hero
+           run: |
+             docker compose -f Docker-compose.yml down
+             docker compose -f Docker-compose.yml up -d --build --force-recreate --pull always
