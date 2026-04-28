@@ -1,15 +1,19 @@
 name: Deploy App
 
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ["Docker Build and push "]
+    types: [completed]
+    branches:
+        - main
 
 jobs:  
    deploy:
+     if: ${{ github.event.workflow_run.conclusion == 'success' }}
      runs-on: self-hosted
      env:
-       DOCKERHUB_USERNAME: reynu14negi
-       DOCKER_TAG: latest
+            DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+            DOCKER_TAG: ${{ github.event.workflow_run.head_sha }}
      steps:
          - name: checkout code
            uses: actions/checkout@v4
@@ -18,7 +22,4 @@ jobs:
            uses: docker/setup-compose-action@v2
 
          - name: Deploy with Docker Compose
-           run: |
-             docker compose -f Docker-compose.yml down
-             docker compose -f Docker-compose.yml pull
-             docker compose -f Docker-compose.yml up -d --force-recreate
+           run: docker compose down && docker compose up -d --build --force-recreate --pull always
