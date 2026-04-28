@@ -7,6 +7,8 @@ on:
 jobs:  
    deploy:
      runs-on: self-hosted
+     env:
+            DOCKERHUBUSERNAME_USER: ${{ vars.DOCKERHUBUSERNAME_USER }}
      steps:
          - name: checkout code
            uses: actions/checkout@v4
@@ -15,4 +17,4 @@ jobs:
            uses: docker/setup-compose-action@v2
 
          - name: Deploy with Docker Compose
-           run: docker compose run -d  --build --force-recreate 
+           run: docker compose down && docker compose up -d --build --force-recreate --pull always
