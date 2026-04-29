@@ -30,9 +30,9 @@ jobs:
             - name: Copy docker-compose file to prod server
               uses: appleboy/ssh-action@v1.2.0
               with:
-                host: ${{ vars.PROD_SERVER_IP }}
-                username: ${{ vars.PROD_SERVER_USERNAME }}
-                key: ${{ secrets.SSH_PRIVATEKEY }}
+                host: ${{ vars.SSH_HOST }}
+                username: ${{ vars.SSH_USER }}
+                key: ${{ secrets.SSH_PRIVATE_KEY }}
                 source: "Docker-compose.yml"
                 target: "/app/Docker-compose.yml"
                 
