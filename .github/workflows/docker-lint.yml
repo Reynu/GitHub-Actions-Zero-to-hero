@@ -14,6 +14,6 @@ jobs:
               uses: actions/checkout@v4
 
             - name: validate Dockerfile
-              uses: hadolint/hadolint-action@v2
+              uses: hadolint/hadolint-action@v3.3.0
               with:
                 dockerfile: Dockerfile  
