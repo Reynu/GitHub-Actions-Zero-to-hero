@@ -27,4 +27,4 @@ jobs:
               run: bandit -r app.py
               
             - name: run tests
-              run: pytest app.py  
+              run: pytest
