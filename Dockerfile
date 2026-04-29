@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install -r requirements.txt  # --no-cache is used to reduce the image size by not caching the installed packages and does not create any separate folder for cache
-
+RUN pip install --no-cache-dir requirements.txt       
+    
 EXPOSE 80
 
 CMD ["gunicorn","--bind", "0.0.0.0:80", "app:app"]
