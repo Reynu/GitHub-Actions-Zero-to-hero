@@ -1,0 +1,31 @@
+name: DecSecOps Pipeline
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    # CI ( Continuous Integration with Secruity Scanning )
+    
+    code-quality:
+        uses: ./.github/workflows/code-quality.yml
+
+    secrets-scan:
+        uses: ./.github/workflows/secrets-scan.yml
+        
+    dependency-scan:
+        uses: ./.github/workflows/dependency-scan.yml
+        
+    docker-lint:
+        uses: ./.github/workflows/docker-lint.yml
+        
+    # Build once the security scans and tests are complete
+    
+    build-and-push:
+        needs: [code-quality, secrets-scan, dependency-scan, docker-lint]
+        uses: ./.github/workflows/docker-build-push.yml
+
+     # Image scan 
+    image-scan:
+        needs: [build-and-push]
+        uses: ./.github/workflows/image-scan.yml
