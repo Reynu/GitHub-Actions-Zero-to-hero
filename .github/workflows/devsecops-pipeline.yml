@@ -35,5 +35,5 @@ jobs:
     # CD : Deploy to Production     
     deploy-to-server:   
         needs: [image-scan]
-        uses: ./.github/workflows/deploy-app.yml
+        uses: ./.github/workflows/deploy-to-server.yml
         secrets: inherit 
