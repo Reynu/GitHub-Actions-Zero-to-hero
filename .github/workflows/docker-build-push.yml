@@ -15,7 +15,7 @@ jobs:
       - name: login to docker hub
         uses: docker/login-action@v3
         with:
-          username: reynu14negi
+          username: ${{vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
               
       - name: Build and push Docker image
@@ -24,6 +24,6 @@ jobs:
           context: .
           push: true
           tags: |
-            reynu14negi/github-actions-app:latest
-            reynu14negi/github-actions-app:${{ github.sha }}
-            reynu14negi/github-actions-app:${{ github.ref_name }}
+            ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:latest
+            ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:${{ github.sha }}
+            ${{ vars.DOCKERHUB_USERNAME }}/github-actions-app:${{ github.ref_name }}

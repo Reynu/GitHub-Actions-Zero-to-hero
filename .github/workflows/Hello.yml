@@ -3,10 +3,11 @@ name: Hello workflow
 
 # runs on an automatic trigger, whenever changes are pushed to branch (deployment)
 on:
-  push:
-   branches: [main]
-   paths: 
-      - '**.html'
+  workflow_dispatch:
+  # push:
+  #  branches: [main]
+  #  paths: 
+  #     - '**.html'
 
 # these are jobs inside the workflow
 jobs:
