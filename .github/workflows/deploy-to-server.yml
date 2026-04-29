@@ -16,9 +16,9 @@ jobs:
             - name: SSH to prod server and create app folder and install required packages
               uses: appleboy/ssh-action@v1.0.3
               with:
-                host: ${{ vars.PROD_SERVER_IP }}
-                username: ${{ vars.PROD_SERVER_USERNAME }}
-                key: ${{ secrets.SSH_PRIVATEKEY }}
+                host: ${{ vars.SSH_HOST }}
+                username: ${{ vars.SSH_USER }}
+                key: ${{ secrets.SSH_PRIVATE_KEY }}
                 script: |
                     echo "Installing required packages & folders"
                     mkdir -p /app
