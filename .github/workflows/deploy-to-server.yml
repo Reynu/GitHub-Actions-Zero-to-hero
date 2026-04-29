@@ -1,0 +1,48 @@
+# this will deploy the safe / secure / tested app to the prod server
+
+name: Deploy to Server
+
+on:
+    workflow_call:
+
+jobs:
+    deploy-to-server:
+        runs-on: ubuntu-latest
+        
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4
+
+            - name: SSH to prod server and create app folder and install required packages
+              uses: appleboy/ssh-action@master
+              with:
+                host: ${{ vars.PROD_SERVER_IP }}
+                username: ${{ vars.PROD_SERVER_USERNAME }}
+                key: ${{ secrets.SSH_PRIVATEKEY }}
+                script: |
+                    echo "Installing required packages & folders"
+                    mkdir -p /app
+                    cd /app
+                    sudo apt update -y
+                    sudo apt install docker.io -y && docker-compose-v2 -y
+                    sudo usermod -aG docker $USER
+
+            - name: Copy docker-compose file to prod server
+              uses: appleboy/scp-action@master
+              with:
+                host: ${{ vars.PROD_SERVER_IP }}
+                username: ${{ vars.PROD_SERVER_USERNAME }}
+                key: ${{ secrets.SSH_PRIVATEKEY }}
+                source: "Docker-compose.yml"
+                target: "/app/Docker-compose.yml"
+                
+            - name: SSH to prod server & run the app using docker compose
+              uses: appleboy/ssh-action@master
+              with:
+                host: ${{ vars.PROD_SERVER_IP }}
+                username: ${{ vars.PROD_SERVER_USERNAME }}
+                key: ${{ secrets.SSH_PRIVATEKEY }}
+                script: |
+                    echo "Deploying the app using docker compose"
+                    cd /app
+                    docker compose down && docker compose up -d --build --force-recreate --pull always    

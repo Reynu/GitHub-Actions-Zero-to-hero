@@ -31,3 +31,9 @@ jobs:
         needs: [build-and-push]
         uses: ./.github/workflows/image-scan.yml
         secrets: inherit
+
+    # CD : Deploy to Production     
+    deploy-to-server:   
+        needs: [image-scan]
+        uses: ./.github/workflows/deploy-app.yml
+        secrets: inherit 
