@@ -30,6 +30,9 @@ jobs:
                     sudo apt install docker.io && sudo apt install docker-compose-v2 -y
                     sudo usermod -aG docker $USER
 
+            - name: Verify docker compose file exists
+              run: ls -la Docker-compose.yml
+
             - name: Copy docker-compose file to prod server
               uses: appleboy/scp-action@v1.0.0
               with:
@@ -37,7 +40,7 @@ jobs:
                 username: ${{ vars.SSH_USER }}
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 port: 22
-                source: docker-compose.yml
+                source: ./Docker-compose.yml
                 target: ~/app
                 
             - name: SSH to prod server & run the app using docker compose
@@ -50,4 +53,5 @@ jobs:
                 script: |
                     echo "Deploying the app using docker compose"
                     cd ~/app
-                    docker compose down && docker compose up -d --build --force-recreate --pull always    
+                    docker compose -f Docker-compose.yml down
+                    docker compose -f Docker-compose.yml up -d --build --force-recreate --pull always    
