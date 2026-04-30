@@ -13,7 +13,7 @@ jobs:
         steps:
             - name: checkout code
               uses: actions/checkout@v4
-              
+
 
             - name: SSH to prod server and create app folder and install required packages
               uses: appleboy/ssh-action@v1.2.0
@@ -21,6 +21,7 @@ jobs:
                 host: ${{ vars.SSH_HOST }}
                 username: ${{ vars.SSH_USER }}
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
+                port: 22
                 script: |
                     echo "Installing required packages & folders"
                     mkdir -p /app
@@ -35,6 +36,7 @@ jobs:
                 host: ${{ vars.SSH_HOST }}
                 username: ${{ vars.SSH_USER }}
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
+                port: 22
                 source: "Docker-compose.yml"
                 target: "/app/Docker-compose.yml"
                 
@@ -44,6 +46,7 @@ jobs:
                 host: ${{ vars.SSH_HOST }}
                 username: ${{ vars.SSH_USER }}
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
+                port: 22
                 script: |
                     echo "Deploying the app using docker compose"
                     cd /app
