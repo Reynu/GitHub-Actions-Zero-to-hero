@@ -9,6 +9,9 @@ on:
 jobs:
     deploy-to-server:
         runs-on: ubuntu-latest
+        env:
+            DOCKERHUB_USER: ${{ vars.DOCKERHUB_USERNAME }}
+            DOCKER_TAG: ${{ github.sha }}
         
         steps:
             - name: checkout code
@@ -51,7 +54,9 @@ jobs:
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 port: 22
                 script: |
-                    echo "Deploying the app using docker compose"
-                    cd ~/app
-                    docker compose -f Docker-compose.yml down
-                    docker compose -f Docker-compose.yml up -d --build --force-recreate --pull always    
+                    echo "Running App"
+                
+                    export DOCKERHUB_USER=${{ vars.DOCKERHUB_USERNAME }}
+                    export DOCKER_TAG=${{ github.sha }}
+                    echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ vars.DOCKERHUB_USERNAME }} --password-stdin
+                    cd ~/app && docker compose down && docker compose up -d --build --force-recreate --pull always
