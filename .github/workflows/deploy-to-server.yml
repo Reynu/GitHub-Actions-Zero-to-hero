@@ -4,9 +4,7 @@ name: Deploy to Server
 
 on:
     workflow_call:
-        secrets:
-            SSH_PRIVATE_KEY:
-                required: true
+
 
 jobs:
     deploy-to-server:
@@ -15,27 +13,7 @@ jobs:
         steps:
             - name: checkout code
               uses: actions/checkout@v4
-
-            - name: Validate SSH private key
-              env:
-                SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-              run: |
-                if [ -z "$SSH_PRIVATE_KEY" ]; then
-                  echo "::error::SSH_PRIVATE_KEY secret is empty or not available to this workflow"
-                  exit 1
-                fi
-                if ! printf '%s\n' "$SSH_PRIVATE_KEY" | head -n 1 | grep -Eq '^-----BEGIN (OPENSSH|RSA|EC|DSA) PRIVATE KEY-----$'; then
-                  echo "::error::SSH_PRIVATE_KEY is not a valid private key. Add the full private key, including BEGIN/END lines."
-                  exit 1
-                fi
-                if printf '%s\n' "$SSH_PRIVATE_KEY" | grep -q '\\n'; then
-                  echo "::error::SSH_PRIVATE_KEY contains literal \\n text. Paste the key with real line breaks in the GitHub secret."
-                  exit 1
-                fi
-                if ! printf '%s\n' "$SSH_PRIVATE_KEY" | tail -n 1 | grep -Eq '^-----END (OPENSSH|RSA|EC|DSA) PRIVATE KEY-----$'; then
-                  echo "::error::SSH_PRIVATE_KEY is missing the END PRIVATE KEY line."
-                  exit 1
-                fi
+              
 
             - name: SSH to prod server and create app folder and install required packages
               uses: appleboy/ssh-action@v1.2.0
