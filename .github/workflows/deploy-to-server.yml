@@ -4,6 +4,9 @@ name: Deploy to Server
 
 on:
     workflow_call:
+        secrets:
+            SSH_PRIVATE_KEY:
+                required: true
 
 jobs:
     deploy-to-server:
@@ -12,6 +15,15 @@ jobs:
         steps:
             - name: checkout code
               uses: actions/checkout@v4
+
+            - name: Validate SSH private key
+              env:
+                SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+              run: |
+                if [ -z "$SSH_PRIVATE_KEY" ]; then
+                  echo "::error::SSH_PRIVATE_KEY secret is empty or not available to this workflow"
+                  exit 1
+                fi
 
             - name: SSH to prod server and create app folder and install required packages
               uses: appleboy/ssh-action@v1.2.0
@@ -24,11 +36,11 @@ jobs:
                     mkdir -p /app
                     cd /app
                     sudo apt update -y
-                    sudo apt install docker.io -y && docker-compose-v2 -y
+                    sudo apt install docker.io docker-compose-v2 -y
                     sudo usermod -aG docker $USER
 
             - name: Copy docker-compose file to prod server
-              uses: appleboy/ssh-action@v1.2.0
+              uses: appleboy/scp-action@v0.1.7
               with:
                 host: ${{ vars.SSH_HOST }}
                 username: ${{ vars.SSH_USER }}
