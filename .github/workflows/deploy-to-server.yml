@@ -37,8 +37,8 @@ jobs:
                 username: ${{ vars.SSH_USER }}
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 port: 22
-                source: "docker-compose.yml"
-                target: "~/app"
+                source: docker-compose.yml
+                target: ~/app
                 
             - name: SSH to prod server & run the app using docker compose
               uses: appleboy/ssh-action@v1.2.5
