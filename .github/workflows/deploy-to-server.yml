@@ -4,13 +4,18 @@ name: Deploy to Server
 
 on:
     workflow_call:
+        secrets:
+            SSH_PRIVATE_KEY:
+                required: true
+            DOCKER_TOKEN:
+                required: true
 
 
 jobs:
     deploy-to-server:
         runs-on: ubuntu-latest
         env:
-            DOCKERHUB_USER: ${{ vars.DOCKERHUB_USERNAME }}
+            DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
             DOCKER_TAG: ${{ github.sha }}
         
         steps:
@@ -56,7 +61,9 @@ jobs:
                 script: |
                     echo "Running App"
                 
-                    export DOCKERHUB_USER=${{ vars.DOCKERHUB_USERNAME }}
+                    export DOCKERHUB_USERNAME=${{ vars.DOCKERHUB_USERNAME }}
                     export DOCKER_TAG=${{ github.sha }}
-                    echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ vars.DOCKERHUB_USERNAME }} --password-stdin
-                    cd ~/app && docker compose down && docker compose up -d --build --force-recreate --pull always
+                    echo "${{ secrets.DOCKER_TOKEN }}" | docker login --username "${{ vars.DOCKERHUB_USERNAME }}" --password-stdin
+                    cd ~/app
+                    docker compose -f Docker-compose.yml down
+                    docker compose -f Docker-compose.yml up -d --build --force-recreate --pull always
