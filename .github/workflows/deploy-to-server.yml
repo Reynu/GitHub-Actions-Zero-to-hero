@@ -24,8 +24,8 @@ jobs:
                 port: 22
                 script: |
                     echo "Installing required packages & folders"
-                    mkdir -p /app
-                    cd /app
+                    mkdir -p ~/app
+                    cd ~/app
                     sudo apt update -y
                     sudo apt install docker.io docker-compose-v2 -y
                     sudo usermod -aG docker $USER
@@ -38,7 +38,7 @@ jobs:
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 port: 22
                 source: "Docker-compose.yml"
-                target: "/app"
+                target: "~/app"
                 
             - name: SSH to prod server & run the app using docker compose
               uses: appleboy/ssh-action@v1.2.5
@@ -49,5 +49,5 @@ jobs:
                 port: 22
                 script: |
                     echo "Deploying the app using docker compose"
-                    cd /app
+                    cd ~/app
                     docker compose down && docker compose up -d --build --force-recreate --pull always    
